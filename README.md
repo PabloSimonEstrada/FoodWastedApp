@@ -1,2 +1,0 @@
-# FoodWastedApp
-Food Wasted App
