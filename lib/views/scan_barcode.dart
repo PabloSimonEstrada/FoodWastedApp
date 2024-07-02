@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:food_wasted_app/services/food_service.dart';
+import 'package:food_wasted_app/views/product_detail.dart';
 
 class ScanBarcodePage extends StatelessWidget {
   const ScanBarcodePage({super.key});
@@ -13,9 +15,22 @@ class ScanBarcodePage extends StatelessWidget {
         const SnackBar(content: Text('Scanning cancelled')),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Scanned code: $barcodeScanRes')),
-      );
+      // Llamar al servicio para obtener la información del producto
+      FoodService foodService = FoodService();
+      Map<String, dynamic>? productData = await foodService.fetchProduct(barcodeScanRes);
+
+      if (productData != null && productData['status'] == 1) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailPage(productData: productData),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Sorry, I can\'t find this product.')),
+        );
+      }
     }
   }
 

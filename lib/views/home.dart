@@ -76,7 +76,9 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ActionButton(
+                  SizedBox(
+                  width: 300,
+                  child: ActionButton(
                       title: 'My Profile',
                       icon: Icons.person,
                       color: Colors.teal,
@@ -84,8 +86,12 @@ class HomePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(builder: (context) => MyProfilePage()),
                       ),
+                  ),
                     ),
-                    ActionButton(
+
+    SizedBox(
+    width: 300,
+    child:                ActionButton(
                       title: 'Scan Item',
                       icon: Icons.camera_alt,
                       color: Colors.orangeAccent,
@@ -93,8 +99,11 @@ class HomePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(builder: (context) => ScanBarcodePage()),
                       ),
+    ),
                     ),
-                    ActionButton(
+    SizedBox(
+    width: 300,
+    child: ActionButton(
                       title: 'Food in Refrigerator',
                       icon: Icons.kitchen,
                       color: Colors.purpleAccent,
@@ -103,7 +112,10 @@ class HomePage extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => FoodInRefrigeratorPage()),
                       ),
                     ),
-                    ActionButton(
+              ),
+    SizedBox(
+    width: 300,
+    child: ActionButton(
                       title: 'Design Recipe',
                       icon: Icons.book,
                       color: Colors.redAccent,
@@ -112,6 +124,7 @@ class HomePage extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => DesignRecipePage()),
                       ),
                     ),
+    ),
                   ],
                 ),
               ),
