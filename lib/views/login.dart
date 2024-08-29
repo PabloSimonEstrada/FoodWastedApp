@@ -57,71 +57,45 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 40),
               // Email TextField
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email Address',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                    borderSide: const BorderSide(color: Colors.black),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                    borderSide: const BorderSide(color: Colors.black, width: 2.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                    borderSide: const BorderSide(color: Colors.black, width: 2.0),
-                  ),
-                  prefixIcon: const Icon(Icons.email, color: Colors.black),
+                  prefixIcon: Icon(Icons.email),
                 ),
-                style: const TextStyle(color: Colors.black),
               ),
               const SizedBox(height: 20),
               // Password TextField
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                    borderSide: const BorderSide(color: Colors.black),
+                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                    borderSide: const BorderSide(color: Colors.black, width: 2.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                    borderSide: const BorderSide(color: Colors.black, width: 2.0),
-                  ),
-                  prefixIcon: const Icon(Icons.lock, color: Colors.black),
+                  prefixIcon: Icon(Icons.lock),
                 ),
                 obscureText: true,
-                style: const TextStyle(color: Colors.black),
               ),
               const SizedBox(height: 30),
               // Sign In Button
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.lightGreen,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    textStyle: const TextStyle(fontSize: 18),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.lightGreen,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(
-                      color: Colors.white,  // Texto blanco para que sea visible
-                    ),
+                  minimumSize: const Size(double.infinity, 50),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  textStyle: const TextStyle(fontSize: 18),
+                ),
+                child: const Text(
+                  'Sign In',
+                  style: TextStyle(
+                    color: Colors.white,  // Texto blanco para que sea visible
                   ),
                 ),
               ),
