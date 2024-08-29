@@ -75,11 +75,11 @@ class Recipe {
 class RecipeCard extends StatelessWidget {
   final Recipe recipe;
 
-  const RecipeCard({required this.recipe});
+  const RecipeCard({super.key, required this.recipe});
 
   @override
   Widget build(BuildContext context) {
-    TextStyle titleStyle = TextStyle(color: Colors.blue, fontWeight: FontWeight.bold); // Estilo para los títulos
+    TextStyle titleStyle = const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold); // Estilo para los títulos
     double lineSpacing = 4.0; // Espacio entre líneas para mejor legibilidad
 
     return Card(
@@ -157,7 +157,7 @@ class RecipeCard extends StatelessWidget {
                 style: TextButton.styleFrom(
                   foregroundColor: Theme.of(context).primaryColor,
                 ),
-                child: Text('View Recipe'),
+                child: const Text('View Recipe'),
               ),
             ),
           ],

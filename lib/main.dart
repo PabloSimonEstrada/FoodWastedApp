@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:food_wasted_app/views/home.dart';
 import 'package:food_wasted_app/views/login.dart';
 import 'package:food_wasted_app/views/register1.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -27,9 +32,9 @@ class MyApp extends StatelessWidget {
       ),
       home: const LogoScreen(),
       routes: {
-        '/home/': (context) => HomePage(),
-        '/login/': (context) => LoginPage(),
-        '/register/': (context) => CreateAccountPage(),
+        '/home/': (context) => const HomePage(),
+        '/login/': (context) => const LoginPage(),
+        '/register/': (context) => const CreateAccountPage(),
       },
     );
   }
@@ -41,44 +46,52 @@ class LogoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.2,
-            child: Image.asset('assets/images/fw.png', width: 250, height: 250),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 180),
-              const Text(
-                'Welcome to Food Waste App!',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'OpenSans'),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+            Container(
+
+              child: Image.asset('assets/images/fw.png', width: 250, height: 250),
+            ),
+
+            const Text(
+              'Welcome to Food Waste App!',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'OpenSans'),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 20),
+              child: const Text(
+                'Join the movement,\nReduce food waste.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300, fontFamily: 'OpenSans'),
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 20),
-                child: const Text(
-                  'Join the movement,\nReduce food waste.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300, fontFamily: 'OpenSans'),
-                ),
+            ),
+            _buildActionButton(
+              context: context,
+              title: 'Login',
+              color: Colors.lightGreen,
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage())),
+            ),
+            _buildActionButton(
+              context: context,
+              title: 'Register',
+              isOutlined: true,
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateAccountPage())),
+            ),
+            const SizedBox(height: 20),
+            TextButton(
+              onPressed: () {
+
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.grey,
               ),
-              _buildActionButton(
-                context: context,
-                title: 'Login',
-                color: Colors.lightGreen,
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage())),
-              ),
-              _buildActionButton(
-                context: context,
-                title: 'Register',
-                isOutlined: true,
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CreateAccountPage())),
-              ),
-            ],
-          ),
-        ],
+              child: const Text('Or sign in with Google'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -104,6 +117,7 @@ class LogoScreen extends StatelessWidget {
         ),
         child: Text(title, style: const TextStyle(fontSize: 18, fontFamily: 'OpenSans', color: Colors.white)),
       ),
+
     );
   }
 }

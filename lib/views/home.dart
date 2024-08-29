@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:food_wasted_app/views/food_in_refrigerator.dart';
 import 'package:food_wasted_app/views/my_profile.dart';
 import 'package:food_wasted_app/views/scan_barcode.dart';
-
 import 'Recipie.dart';
 
 void main() {
@@ -76,55 +75,66 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                  SizedBox(
-                  width: 300,
-                  child: ActionButton(
-                      title: 'My Profile',
-                      icon: Icons.person,
-                      color: Colors.teal,
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyProfilePage()),
-                      ),
-                  ),
-                    ),
-
-    SizedBox(
-    width: 300,
-    child:                ActionButton(
-                      title: 'Scan Item',
-                      icon: Icons.camera_alt,
-                      color: Colors.orangeAccent,
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ScanBarcodePage()),
-                      ),
-    ),
-                    ),
-    SizedBox(
-    width: 300,
-    child: ActionButton(
-                      title: 'Food in Refrigerator',
-                      icon: Icons.kitchen,
-                      color: Colors.purpleAccent,
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => FoodInRefrigeratorPage()),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: ActionButton(
+                          title: 'My Profile',
+                          icon: Icons.person,
+                          color: Colors.teal,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MyProfilePage()),
+                          ),
+                        ),
                       ),
                     ),
-              ),
-    SizedBox(
-    width: 300,
-    child: ActionButton(
-                      title: 'Design Recipe',
-                      icon: Icons.book,
-                      color: Colors.redAccent,
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => DesignRecipePage()),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: ActionButton(
+                          title: 'Scan Item',
+                          icon: Icons.camera_alt,
+                          color: Colors.orangeAccent,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const ScanBarcodePage()),
+                          ),
+                        ),
                       ),
                     ),
-    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: ActionButton(
+                          title: 'Food in Refrigerator',
+                          icon: Icons.kitchen,
+                          color: Colors.purpleAccent,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const FoodInRefrigeratorPage()),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: ActionButton(
+                          title: 'Design Recipe',
+                          icon: Icons.book,
+                          color: Colors.redAccent,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const DesignRecipePage()),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -143,6 +153,7 @@ class ActionButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const ActionButton({
+    super.key,
     required this.title,
     required this.icon,
     required this.color,
@@ -155,13 +166,18 @@ class ActionButton extends StatelessWidget {
       icon: Icon(icon),
       label: Text(
         title,
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: color,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: color == Colors.white ? Colors.white : color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+          side: color == Colors.white
+              ? BorderSide(color: Theme.of(context).primaryColor, width: 2)
+              : BorderSide.none,
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 18),
         elevation: 4,
       ),

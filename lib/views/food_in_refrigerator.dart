@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_wasted_app/views/product_detail.dart';
 import 'package:intl/intl.dart';
 
 class FoodInRefrigeratorPage extends StatefulWidget {
@@ -17,6 +18,18 @@ class _FoodInRefrigeratorPageState extends State<FoodInRefrigeratorPage> {
     {'name': 'Vegetables', 'quantity': 'Assorted', 'expiryDate': '2024-04-18'},
   ];
 
+  void _removeItem(int index) {
+    setState(() {
+      _fridgeItems.removeAt(index);
+    });
+  }
+
+  void _consumeItem(int index) {
+    setState(() {
+      _fridgeItems[index]['consumed'] = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     _fridgeItems.sort((a, b) {
@@ -26,7 +39,17 @@ class _FoodInRefrigeratorPageState extends State<FoodInRefrigeratorPage> {
     });
 
     return Scaffold(
-
+      appBar: AppBar(
+        title: const Text(
+          'What\'s in your fridge?',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.green[700],
+      ),
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -37,22 +60,9 @@ class _FoodInRefrigeratorPageState extends State<FoodInRefrigeratorPage> {
             ),
           ),
           child: Padding(
-
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
-                  child: Text(
-                    'What\'s in your fridge?',
-                    style: TextStyle(
-                      color: Colors.blueGrey[800],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
                 Expanded(
                   child: ListView.separated(
                     itemCount: _fridgeItems.length,
@@ -69,17 +79,52 @@ class _FoodInRefrigeratorPageState extends State<FoodInRefrigeratorPage> {
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundColor: Theme.of(context).primaryColor.withOpacity(0.8),
-                            child: Icon(Icons.kitchen, color: Colors.white),
+                            child: const Icon(Icons.kitchen, color: Colors.white),
                           ),
                           title: Text(
                             item['name'],
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueGrey[800]),
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blueGrey[800],
+                              decoration: item.containsKey('consumed') && item['consumed']
+                                  ? TextDecoration.lineThrough
+                                  : null,
+                            ),
                           ),
                           subtitle: Text(
                             'Quantity: ${item['quantity']}\nExpiry in $daysUntilExpiry days',
-                            style: TextStyle(fontSize: 15, color: Colors.blueGrey[600]),
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.blueGrey[600],
+                            ),
                           ),
-                          trailing: Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryColor),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+
+                              IconButton(
+                                icon: const Icon(Icons.delete, color: Colors.red),
+                                onPressed: () => _removeItem(index),
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductDetailPage(
+                                  productData: {
+                                    'product': {
+                                      'product_name_en': item['name'],
+                                      'expiration_date': item['expiryDate'],
+                                    },
+                                    'expiryDate': item['expiryDate'],
+                                  },
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       );
                     },

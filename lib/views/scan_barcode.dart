@@ -15,9 +15,9 @@ class ScanBarcodePage extends StatelessWidget {
         const SnackBar(content: Text('Scanning cancelled')),
       );
     } else {
-      // Llamar al servicio para obtener la información del producto
       FoodService foodService = FoodService();
-      Map<String, dynamic>? productData = await foodService.fetchProduct(barcodeScanRes);
+      Map<String, dynamic>? productData =
+      await foodService.fetchProduct(barcodeScanRes);
 
       if (productData != null && productData['status'] == 1) {
         Navigator.push(
@@ -32,6 +32,13 @@ class ScanBarcodePage extends StatelessWidget {
         );
       }
     }
+  }
+
+  void addProductManually(BuildContext context) {
+    // Navegar a una página para añadir un producto manualmente
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Add product manually tapped')),
+    );
   }
 
   @override
@@ -49,7 +56,7 @@ class ScanBarcodePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Spacer(),
+              const Spacer(),
               Icon(
                 Icons.qr_code_scanner,
                 size: 150,
@@ -57,38 +64,77 @@ class ScanBarcodePage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                'Point your camera at a barcode',
+                'Scan a Barcode',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 26,
                   fontWeight: FontWeight.bold,
                   color: Colors.blueGrey[800],
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 20),
-              Text(
-                'Align the barcode within the frame to scan',
-                style: TextStyle(color: Colors.blueGrey[600]),
-                textAlign: TextAlign.center,
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                child: Text(
+                  'Align the barcode within the frame and the scanning will happen automatically.',
+                  style: TextStyle(color: Colors.blueGrey[600], fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 40),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => scanBarcode(context),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: Theme.of(context).primaryColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 18),
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  ),
-                  child: const Text(
-                    'Start Scanning',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: ElevatedButton(
+                    onPressed: () => scanBarcode(context),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 48, vertical: 18),
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                    ),
+                    child: const Text(
+                      'Start Scanning',
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ),
-              Spacer(),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: ElevatedButton(
+                    onPressed: () => addProductManually(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white, // Fondo blanco
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 48, vertical: 18),
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: BorderSide(
+                            color: Theme.of(context).primaryColor, width: 2),
+                      ),
+                    ),
+                    child: Text(
+                      'Add Product Manually',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor, // Texto verde
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const Spacer(),
             ],
           ),
         ),

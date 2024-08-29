@@ -4,13 +4,13 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class FullProductDetailPage extends StatelessWidget {
   final Map<String, dynamic> productData;
 
-  FullProductDetailPage({required this.productData});
+  const FullProductDetailPage({super.key, required this.productData});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(productData['product_name_en'] ?? 'Product Detail',  style: TextStyle(color: Colors.white)),
+        title: Text(productData['product_name_en'] ?? 'Product Detail',  style: const TextStyle(color: Colors.white)),
         backgroundColor: Colors.lightGreen,
       ),
       body: SafeArea(
@@ -30,22 +30,22 @@ class FullProductDetailPage extends StatelessWidget {
                 'Product Name: ${productData['product_name_en'] ?? 'N/A'}',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blueGrey[800]),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Ingredients: ${productData['ingredients_text_en'] ?? 'N/A'}',
                 style: TextStyle(fontSize: 16, color: Colors.blueGrey[700]),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 'Nutritional Information (per 100g):',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueGrey[800]),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Energy: ${(productData['nutriments']['energy_100g'] ?? 'N/A')} kJ / ${_kJToKCal(productData['nutriments']['energy_100g'])} kcal',
                 style: TextStyle(fontSize: 16, color: Colors.blueGrey[700]),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Expanded(
                 child: charts.BarChart(
                   _createSampleData(),
@@ -53,7 +53,7 @@ class FullProductDetailPage extends StatelessWidget {
                   vertical: false,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               _buildNutritionalInfo(),
             ],
           ),

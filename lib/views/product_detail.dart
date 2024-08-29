@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:food_wasted_app/views/full_product_detail.dart';
 
 class ProductDetailPage extends StatelessWidget {
@@ -9,13 +10,16 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = productData['product'];
-    final expirationDate = product['expiration_date'] ?? 'N/A';
+    final selectedExpirationDate = productData['expiryDate'];
+    final expirationDate = selectedExpirationDate != null
+        ? DateFormat('dd MMM yyyy').format(DateTime.parse(selectedExpirationDate))
+        : (product['expiration_date'] ?? 'N/A');
     final productName = product['product_name_en'] ?? 'N/A';
     final productImage = product['image_url'] ?? '';
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product Details', style: TextStyle(color: Colors.white)),
+        title: const Text('Product Details', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.lightGreen,
       ),
       body: SafeArea(
@@ -60,8 +64,8 @@ class ProductDetailPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton.icon(
-                    icon: Icon(Icons.add),
-                    label: Text('Add', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    icon: const Icon(Icons.add),
+                    label: const Text('Add', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     onPressed: () {
                       // Lógica para añadir el producto
                     },
@@ -75,8 +79,8 @@ class ProductDetailPage extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton.icon(
-                    icon: Icon(Icons.details),
-                    label: Text('Details', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    icon: const Icon(Icons.details),
+                    label: const Text('Details', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     onPressed: () {
                       Navigator.push(
                         context,

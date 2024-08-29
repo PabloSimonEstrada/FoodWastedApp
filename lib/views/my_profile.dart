@@ -18,12 +18,12 @@ class MyProfilePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Spacer(),
-              CircleAvatar(
+              const Spacer(),
+              const CircleAvatar(
                 radius: 80,
                 backgroundImage: NetworkImage('https://via.placeholder.com/160'),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Text(
                 'John Doe',
                 style: TextStyle(
@@ -32,45 +32,55 @@ class MyProfilePage extends StatelessWidget {
                   color: Colors.blueGrey[800],
                 ),
               ),
-              SizedBox(height: 20),
-              ProfileInfoCard(
+              const SizedBox(height: 20),
+              const ProfileInfoCard(
                 icon: Icons.restaurant_menu,
                 title: 'Cooking Style',
                 subtitle: 'Gourmet',
               ),
-              ProfileInfoCard(
+              const ProfileInfoCard(
                 icon: Icons.local_florist,
                 title: 'Diet Type',
                 subtitle: 'Vegetarian',
               ),
-              ProfileInfoCard(
+              const ProfileInfoCard(
                 icon: Icons.warning,
                 title: 'Allergies',
                 subtitle: 'Peanuts',
               ),
-              ProfileInfoCard(
+              const ProfileInfoCard(
                 icon: Icons.local_fire_department,
                 title: 'Calories Consumption',
                 subtitle: '2500/day',
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: Theme.of(context).primaryColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 18),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    elevation: 4,
-                  ),
-                  child: Text(
-                    'Edit Profile',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: BorderSide.none,
+                      ),
+                      elevation: 4,
+                    ),
+                    child: const Text(
+                      'Edit Profile',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ),
